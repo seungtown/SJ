@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+int main(void)
+{
+	int size, len, i, j, w, tmp, k, flag = 0;
+
+	cin >> size >> len;
+	int* cash = new int[size];
+
+	for (i = 0; i < size; i++)
+		cash[i] = 0;
+	for (i = 0; i < len; i++) {
+		cin >> w;
+		for (j = 0; j < size; j++) {
+			if (cash[j] == w) {
+				flag = 1;
+				k = j;
+				tmp = w;
+				while (k > 0) {
+					cash[k] = cash[k - 1];
+					k--;
+				}
+				cash[0] = tmp;
+			}
+		}
+		if (flag == 0) {
+			k = size - 1;
+			while (k > 0) {
+				cash[k] = cash[k - 1];
+				k--;
+			}
+			cash[k] = w;
+		}
+		flag = 0;
+	}
+	for (i = 0; i < size; i++)
+		cout << cash[i] << " ";
+	delete[] cash;
+	return 0;
+
+}
